@@ -15,7 +15,12 @@ function getTeams() {
                 $.each(row.find('td'), function(index) {
                     var column = $(this);
                     if (index < positions.length) {
-                        team[positions[index]] = column.text();
+                        if (positions[index] === 'gm-im') {
+                            team['gm'] = column.text().split('-')[0];
+                            team['im'] = column.text().split('-')[1];
+                        } else {
+                            team[positions[index]] = column.text();
+                        }
                     }
                 });
                 if (team.lag) {
@@ -32,7 +37,6 @@ function createTable(teams, sortKey) {
         sortkey = 'p';
     }
 
-    console.log('Sorting by: ' + sortKey);
     teams.sort(function(first, second) {
         a = parseInt(first[sortKey]);
         b = parseInt(second[sortKey]);
