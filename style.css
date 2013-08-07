@@ -1,0 +1,58 @@
+body {
+    font-family: sans-serif;
+}
+
+h1 {
+    font-family: sans-serif;
+    color: #d33;
+    font-weight: 300;
+    font-size: 3em;
+    margin: 10px 0;
+}
+
+td,
+th {
+    padding: 4px 30px !important;
+    border: 0px solid black;
+    text-align: left;
+}
+
+.th-selected,
+.th-selected:hover {
+    color: black;
+    background-color: #afa;
+    cursor: text;
+}
+
+table {
+    border-collapse: collapse;
+    
+}
+
+tr {
+    margin: 0;
+}
+
+th {
+    background-color: #ccc;
+    font-weight: 300;
+    color: white;
+    cursor: pointer;
+    font-family: sans-serif;
+}
+
+
+th:hover {
+    background-color: #cfc;
+    border-radius: 0px;
+}
+
+.tr-even {
+    background-color: #f9f9f9;
+}
+
+.tr-odd {
+}
+
+.td-selected {
+}
