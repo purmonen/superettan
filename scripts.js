@@ -60,16 +60,29 @@ function createTable(teams, sortKey) {
     var headRow = $('<tr></tr>');
     table.append(headRow);
     headRow.append($('<th></th>'));
+
+    var tabindex = 1;
     $.each(teams[0], function(key, value) {
         var column = $('<th></th>');
         headRow.append(column);
+        column.attr('tabindex', tabindex);
+        tabindex++;
         column.text(key.toUpperCase());
         if (key === sortKey) {
+            focusedColumn = column;
             column.addClass('th-selected');
         }
-        column.on('click', function() {
+        function update() {
             table.remove();
             createTable(teams, key);
+        }
+        column.on('click', function() {
+            update();
+        });
+        column.on('keypress', function(event) {
+            if (event.keyCode === 13) {
+                update();
+            }
         });
     });
     $.each(teams, function(index) {
@@ -92,7 +105,9 @@ function createTable(teams, sortKey) {
             }
         });
     });
+
     $('body').append(table);
+    focusedColumn.focus();
 }
 
 $(function() {
