@@ -59,7 +59,7 @@ function createTable(teams, sortKey) {
     table.addClass('table');
     var headRow = $('<tr></tr>');
     table.append(headRow);
-    headRow.append($('<th></th>'));
+    headRow.append($('<td></td>'));
 
     var tabindex = 1;
     $.each(teams[0], function(key, value) {

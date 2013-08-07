@@ -13,7 +13,7 @@ h1 {
 td,
 th {
     padding: 4px 30px !important;
-    border: 0px solid black;
+    border-bottom: 1px solid #ddd;
     text-align: left;
 }
 
@@ -34,9 +34,10 @@ tr {
 }
 
 th {
-    background-color: #ccc;
-    font-weight: 300;
-    color: white;
+    background-color: #fff;
+    font-weight: 900;
+    color: black;
+    font-size: 120%;
     cursor: pointer;
     font-family: sans-serif;
 }
