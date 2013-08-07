@@ -3,7 +3,7 @@ teams = [];
 
 function getTeams() {
     $.ajax({
-        url: '/read.php',
+        url: 'read.php',
         success: function (res) {
             teams = [];
             positions = ['lag', 'm', 'v', 'o', 'f', 'gm-im', '+/-', 'p']; 
