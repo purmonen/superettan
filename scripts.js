@@ -41,10 +41,10 @@ function createTable(teams, sortKey) {
             b = second[sortKey];
         }
         if (a < b) {
-            return 1;
+            return typeof a === 'number' ? 1 : -1;
         }
         if (a > b) {
-            return -1;
+            return typeof a === 'number' ? -1 : 1;
         }
         return 0;
     });
