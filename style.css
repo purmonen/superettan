@@ -12,7 +12,7 @@ h1 {
 
 td,
 th {
-    padding: 4px 30px !important;
+    padding: 0px 30px !important;
     border-bottom: 1px solid #ddd;
     text-align: left;
 }
