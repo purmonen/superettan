@@ -30,7 +30,6 @@ th {
 .th-selected:hover {
     color: black;
     background-color: #afa;
-    cursor: text;
 }
 
 #superettan {

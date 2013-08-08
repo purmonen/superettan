@@ -28,7 +28,7 @@ function getTeams(url, func) {
     });
 }
 
-function createTable(teams, sortKey, container, logos) {
+function createTable(teams, sortKey, container, logos, reverse) {
 
     teams.sort(function(first, second) {
         a = parseInt(first[sortKey], 10);
@@ -37,11 +37,21 @@ function createTable(teams, sortKey, container, logos) {
             a = first[sortKey];
             b = second[sortKey];
         }
+
+        if (typeof a === 'number') {
+            if (a < b) {
+                return reverse ? -1 : 1;
+            }
+            if (a > b) {
+                return reverse ? 1 : -1;
+            }
+            return 0;
+        }
         if (a < b) {
-            return typeof a === 'number' ? 1 : -1;
+            return reverse ? 1 : -1;
         }
         if (a > b) {
-            return typeof a === 'number' ? -1 : 1;
+            return reverse ? -1 : 1;
         }
         return 0;
     });
@@ -66,7 +76,7 @@ function createTable(teams, sortKey, container, logos) {
         }
         function update() {
             table.remove();
-            createTable(teams, key, container, logos);
+            createTable(teams, key, container, logos, key === sortKey && !reverse);
         }
         column.on('click', function() {
             update();
