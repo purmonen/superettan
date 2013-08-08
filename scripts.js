@@ -1,18 +1,6 @@
-teams = [];
-logos = {};
-logos.positions = [
-    'ängelholms ff', 'assyriska ff', 'östersunds fk', 'ik brage',
-    '', 'degerfors if', 'falkenbergs ff', 'hammarby if',
-    'jönköpings södra if', 'landskrona bois', 'ljungskile', '',
-    'örgryte is', 'gif sundsvall', 'ifk värnamo', 'örebro sk', '',
-    'gais', '', 'varbergs bois fc'  
-];
-
-logos.width = 30;
-
-function getTeams() {
+function getTeams(url, func) {
     $.ajax({
-        url: 'read.php',
+        url: url,
         success: function (res) {
             teams = [];
             positions = ['lag', 'm', 'v', 'o', 'f', 'gm-im', '+/-', 'p'];
@@ -35,15 +23,12 @@ function getTeams() {
                     teams.push(team);
                 }
             });
-            createTable(teams, 'p');
+            func(teams);
         }
     });
 }
 
-function createTable(teams, sortKey) {
-    if (sortKey === undefined) {
-        sortkey = 'p';
-    }
+function createTable(teams, sortKey, container, logos) {
 
     teams.sort(function(first, second) {
         a = parseInt(first[sortKey], 10);
@@ -69,7 +54,6 @@ function createTable(teams, sortKey) {
     table.append(headRow);
     headRow.append($('<td></td>'));
 
-    var tabindex = 1;
     $.each(teams[0], function(key, value) {
         var column = $('<th></th>');
         headRow.append(column);
@@ -79,10 +63,10 @@ function createTable(teams, sortKey) {
         if (key === sortKey) {
             focusedColumn = column;
             column.addClass('th-selected');
-         }
+        }
         function update() {
             table.remove();
-            createTable(teams, key);
+            createTable(teams, key, container, logos);
         }
         column.on('click', function() {
             update();
@@ -113,20 +97,26 @@ function createTable(teams, sortKey) {
             });
             name.text(value);
             column.append(name);
+           
             if (key === 'lag') {
-                var left = -logos.width * logos.positions.indexOf(
+                var width = 25;
+                var bgsize = width * logos.positions.length;
+
+                var left = -1 * width *  logos.positions.indexOf(
                     value.toLowerCase().trim());
                 var logo = $('<div></div>');
                 column.prepend(logo);
                 logo.css({
                     float: 'left',
-                    width: '30px',
-                    margin: '0 5px 0 0',
-                    height: '27px',
-                    'background-image': 'url(logos.png)',
-                    'background-position': left + 'px 0px',
+                    width: width + 'px',
+                    height: width,
+                    margin: '5px 5px 0 0',
+                    'background-size': bgsize, 
+                    'background-image': 'url(' + logos.url + ')',
+                    'background-position': left + 'px ' + -1 * width + 'px'
                 });
             }
+            
             row.append(column);
             if (key === sortKey) {
                 column.addClass('td-selected');
@@ -134,10 +124,36 @@ function createTable(teams, sortKey) {
         });
     });
 
-    $('body').append(table);
+    container.append(table);
     focusedColumn.focus();
 }
 
 $(function() {
-    getTeams();
+    tabindex = 1;
+    logos = {};
+    logos.positions = [
+        'ängelholms ff', 'assyriska ff', 'östersunds fk', 'ik brage',
+        '', 'degerfors if', 'falkenbergs ff', 'hammarby if',
+        'jönköpings södra if', 'landskrona bois', 'ljungskile', '',
+        'örgryte is', 'gif sundsvall', 'ifk värnamo', 'örebro sk', '',
+        'gais', '', 'varbergs bois fc'  
+    ];
+    logos.url = 'superettan.png';
+
+    getTeams('superettan.php', function(teams) {
+        createTable(teams, 'p', $('#superettan'), logos);
+    });
+
+    asLogos = {};
+    asLogos.positions = [
+        'aik', 'djurgården', 'if elfsborg', '', '', 'bk häcken',
+        'halmstads bk', 'helsingborgs if', 'ifk göteborg',
+        'kalmar ff', 'malmö ff', 'mjällby aif', 'ifk norrköping',
+        '', 'syrianska fc', 'östers if', 'if brommapojkarna',
+        'åtvidabergs ff' 
+    ];
+    asLogos.url = 'allsvenskan.png';
+    getTeams('allsvenskan.php', function(teams) {
+        createTable(teams, 'p', $('#allsvenskan'), asLogos);
+    });
 });
