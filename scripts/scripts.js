@@ -148,9 +148,9 @@ $(function() {
         'örgryte is', 'gif sundsvall', 'ifk värnamo', 'örebro sk', '',
         'gais', '', 'varbergs bois fc'  
     ];
-    logos.url = 'superettan.png';
+    logos.url = '/images/superettan.png';
 
-    getTeams('superettan.php', function(teams) {
+    getTeams('/scripts/superettan.php', function(teams) {
         createTable(teams, 'p', $('#superettan'), logos);
     });
 
@@ -162,8 +162,8 @@ $(function() {
         '', 'syrianska fc', 'östers if', 'if brommapojkarna',
         'åtvidabergs ff' 
     ];
-    asLogos.url = 'allsvenskan.png';
-    getTeams('allsvenskan.php', function(teams) {
+    asLogos.url = '/images/allsvenskan.png';
+    getTeams('/scripts/allsvenskan.php', function(teams) {
         createTable(teams, 'p', $('#allsvenskan'), asLogos);
     });
 });
