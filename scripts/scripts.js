@@ -139,6 +139,7 @@ function createTable(teams, sortKey, container, logos, reverse) {
 }
 
 $(function() {
+    imagesUrl = window.location.href + 'images/';
     tabindex = 1;
     logos = {};
     logos.positions = [
@@ -148,7 +149,7 @@ $(function() {
         'örgryte is', 'gif sundsvall', 'ifk värnamo', 'örebro sk', '',
         'gais', '', 'varbergs bois fc'  
     ];
-    logos.url = '../images/superettan.png';
+    logos.url = imagesUrl + 'superettan.png';
 
     getTeams('scripts/superettan.php', function(teams) {
         createTable(teams, 'p', $('#superettan'), logos);
@@ -162,7 +163,7 @@ $(function() {
         '', 'syrianska fc', 'östers if', 'if brommapojkarna',
         'åtvidabergs ff' 
     ];
-    asLogos.url = '../images/allsvenskan.png';
+    asLogos.url = imagesUrl + 'allsvenskan.png';
     getTeams('scripts/allsvenskan.php', function(teams) {
         createTable(teams, 'p', $('#allsvenskan'), asLogos);
     });
